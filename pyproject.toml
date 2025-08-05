@@ -1,0 +1,21 @@
+[project]
+name = "Resume_Scoring_System"
+version = "0.1.0"
+description = "Professional ATS Resume Scoring System"
+authors = [
+    { name = "Muhammed Fayiz", email = "muhammedfayiz122@gmail.com"},
+]
+readme = "README.md"
+license = { text = "MIT License", url = "https://opensource.org/licenses/MIT" }
+requires-python = ">=3.8"
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/muhammedfayiz122/Professional-ATS-resume-scoring-system"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["resume_scoring_system"]
