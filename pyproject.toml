@@ -1,5 +1,5 @@
 [project]
-name = "Resume_Scoring_System"
+name = "resume_scoring_system"
 version = "0.1.0"
 description = "Professional ATS Resume Scoring System"
 authors = [

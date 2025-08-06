@@ -1,23 +1,36 @@
 from datetime import datetime, timezone
-from resume_scoring_system. import logger
+import sys
+import os
+from resume_scoring_system.logger.cloud_logger import CustomLogger
+from resume_scoring_system.exception.custom_exception import DocumentPortalException
 from uuid import uuid4
+from langchain_community.document_loaders import PyPDFLoader
+from pathlib import Path
 
 class DataIngestion:
-    def __init__(self, data_path):
-        self.data_path = data_path
-
-    def ingest_files(self, resume_files, save_sessions=True):
+    def __init__(self, data_path: str = "data/resumes"):
+        self.data_path = Path(data_path)
+        self.logger = CustomLogger().get_logger(__name__)
+    def ingest_files(self, resume, save_sessions=True):
         try:
-            for resume in resume_files:
-                if save_sessions:
-                    unique_name = f"resume_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_{uuid4().hex[:8]}.pdf"
-                    resume.save(f"{self.data_path}/{unique_name}")
-                else:
-                    resume.save(f"{self.data_path}/{resume.name}")
-                    
-                self.logger                
-                
-                
+            unique_file_path = None
+            with open(resume, "rb") as file:
+                resume_contents = file.read()
+            if save_sessions:
+                unique_file = f"resume_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_{uuid4().hex[:8]}.pdf"
+                unique_file_path = self.data_path / unique_file
+                os.makedirs(self.data_path, exist_ok=True)
+                with open(unique_file_path, "wb") as new_file:
+                    new_file.write(resume_contents)
+                self.logger.info(f"Resume saved for ingestion: {unique_file_path}")
+            else:
+                resume.save(f"{self.data_path}/{resume.name}")   
+            
+            loader = PyPDFLoader(unique_file_path if save_sessions else resume) # type: ignore
+            docs = loader.load()
+            self.logger.info(f"Loaded {len(docs)} documents from {resume.name}")
+            return docs
+            
         except Exception as e:
-            print(f"An error occurred during file ingestion: {e}")
-            return None
+            self.logger.error(f"Error during file ingestion: {e}")
+            raise DocumentPortalException(f"Failed to ingest files: {e}", sys) from e
