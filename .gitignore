@@ -207,4 +207,4 @@ marimo/_lsp/
 __marimo__/
 
 # Running BAT files
-run.bat
+*.bat

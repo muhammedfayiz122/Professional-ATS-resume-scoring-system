@@ -4,5 +4,17 @@
     "cSpell.words": [
         "agentchat",
         "autogen"
-    ]
+    ],
+    "customFileOrder.rules": {
+        "c:\\Users\\muham\\Desktop\\ATS_Scoring_System\\resume_scoring_system\\agents": {
+            "order": [
+                "resume_processing_agent.py",
+                "ats_scoring_agent.py",
+                "job_description_agent.py",
+                "Improvement_recommendation_agent.py",
+                "visualization_agent.py"
+            ],
+            "type": "manual"
+        }
+    }
 }
