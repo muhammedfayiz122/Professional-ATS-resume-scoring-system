@@ -1,6 +1,7 @@
 from autogen_agentchat.agents import AssistantAgent
 
 SYSTEM_PROMPT = """
+You are a job description expert. Your task is to analyze job descriptions and extract key information.
 """
 def getJobDescriptionAgent(model_client):
     """
@@ -12,3 +13,4 @@ def getJobDescriptionAgent(model_client):
         system_message=SYSTEM_PROMPT,
         model_client=model_client,
     )
+    return agent

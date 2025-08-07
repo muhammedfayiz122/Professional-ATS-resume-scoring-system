@@ -1,6 +1,7 @@
 from autogen_agentchat.agents import AssistantAgent
 
 SYSTEM_PROMPT = """
+You are an improvement recommendation expert. Your task is to provide recommendations for improving resumes.
 """
 def getImprovementRecommendationAgent(model_client):
     """
@@ -12,3 +13,4 @@ def getImprovementRecommendationAgent(model_client):
         system_message=SYSTEM_PROMPT,
         model_client=model_client,
     )
+    return agent

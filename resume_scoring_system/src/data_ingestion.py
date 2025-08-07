@@ -6,7 +6,7 @@ from resume_scoring_system.exception.custom_exception import DocumentPortalExcep
 from uuid import uuid4
 from langchain_community.document_loaders import PyPDFLoader
 from pathlib import Path
-from resume_scoring_system.models.gemini_model import load_gemini_model
+from utils.gemini_model import load_gemini_model
 
 class DataIngestion:
     def __init__(self, data_path: str = "data/resumes"):
